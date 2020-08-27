@@ -13,12 +13,12 @@ $configs['route_groups'] = array(
     'error'=>[
         "404"=>[
             'url'=>['/404','/#/','/404/(.*)'],
-            'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page404',
-            'access'=> '*'
+            'controller'=>'\SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page404',
+            'access'=> ['*']
         ],
         "503"=>[
             'url'=>['/503','/#/','/503/(.*)'],
-            'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page503',
+            'controller'=>'\SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page503',
             'access' => '*'
         ],
     ],
@@ -54,7 +54,7 @@ $configs['route_groups'] = array(
 
         // auth
         'auth'=>[
-                'url'=>['/', '/@','/@/','/@/:action/:params','/@/:action/:params/:token'],
+                'url'=>['/@','/@/','/@/:action/:params','/@/:action/:params/:token'],
                 'controller'=>'\SakuraPanel\Controllers\Auth\Auth',
                 'action'=>1, 
                 'params' =>2 , 

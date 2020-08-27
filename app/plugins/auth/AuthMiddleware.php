@@ -36,23 +36,15 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
         
         $role_name = $this->authUser->role_name  ?? $this::ROLE_DEFAULT;
 
-
-        if (!$this->acl->isAllowed($role_name, $controllerName, $actionName)) {
+        if (!$this->acl->isAllowed($role_name, $controllerName, $actionName ?: 'index')) {
             if (!$this->request->isAjax()){
-                $this->flashSession->error($role_name.' -  You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
+                $this->flashSession->error($role_name.' -  You don\'t have access to this module ' . $controllerName . ':' . $actionName);
                
                 $this->response->redirect('../404');
             }else{
                 $this->ajax->error($role_name.' -  You don\'t have access to this module: ' . $controllerName . ':' . $actionName)->sendResponse();
             }
-            
-            if (!$this->acl->isAllowed($role_name, $controllerName, 'index')) {
-                if ($this->request->isAjax())
-                    return $this->ajax->error('Please reload your page ! ')->sendResponse();
-
-                $this->response->redirect('../404');
-            }
-            
+         
             return false;
         }
     }
